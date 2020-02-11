@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Misuna.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/Misuna.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Misuna.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Misuna.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Misuna.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Misuna.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Misuna.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏设计," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这是第一篇个人对游戏内核进行理解并尝试融入的内容,并且是该blog第一篇希望保持长期更新的blog,后续有条件会制作为视频或其他载体并进行文案翻新.本系列最终目标是以玩家的眼光去评判一个游戏的好坏,以开发商团队的角度去评价一个设计的缺陷与优点,试图探寻他们的设计灵感以及想要寄托托给玩家的内在感受.作为玩家,我们究竟能够从游戏中得到什么;作为开发商,我们又希望玩家有一个怎样的体验. 游戏的本质建立在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏设计的起点:世界的规则">
+<meta property="og:url" content="https://misunam.github.io/Misuna.github.io/2020/02/12/article-title/index.html">
+<meta property="og:site_name" content="想要提拉的米苏">
+<meta property="og:description" content="这是第一篇个人对游戏内核进行理解并尝试融入的内容,并且是该blog第一篇希望保持长期更新的blog,后续有条件会制作为视频或其他载体并进行文案翻新.本系列最终目标是以玩家的眼光去评判一个游戏的好坏,以开发商团队的角度去评价一个设计的缺陷与优点,试图探寻他们的设计灵感以及想要寄托托给玩家的内在感受.作为玩家,我们究竟能够从游戏中得到什么;作为开发商,我们又希望玩家有一个怎样的体验. 游戏的本质建立在">
+<meta property="article:published_time" content="2020-02-11T17:28:57.000Z">
+<meta property="article:modified_time" content="2020-02-11T17:31:18.330Z">
+<meta property="article:author" content="Misuna">
+<meta property="article:tag" content="游戏设计">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Misuna.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://misunam.github.io/Misuna.github.io/2020/02/12/article-title/"/>
+
+
+
+
+
+  <title>游戏设计的起点:世界的规则 | 想要提拉的米苏</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Misuna.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">想要提拉的米苏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Misuna.github.io/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/Misuna.github.io/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Misuna.github.io/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Misuna.github.io/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Misuna.github.io/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://misunam.github.io/Misuna.github.io/Misuna.github.io/2020/02/12/article-title/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Misuna">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Misuna.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想要提拉的米苏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">游戏设计的起点:世界的规则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-12T01:28:57+08:00">
+                2020-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是第一篇个人对游戏内核进行理解并尝试融入的内容,并且是该blog第一篇希望保持长期更新的blog,后续有条件会制作为视频或其他载体并进行文案翻新.本系列最终目标是以玩家的眼光去评判一个游戏的好坏,以开发商团队的角度去评价一个设计的缺陷与优点,试图探寻他们的设计灵感以及想要寄托托给玩家的内在感受.作为玩家,我们究竟能够从游戏中得到什么;作为开发商,我们又希望玩家有一个怎样的体验.</p>
+<p>游戏的本质建立在上帝的规则之中,最简单最容易理解的游戏规则便是骰子.骰子即作为游戏的规则出现推动了玩家之间的发展[即点数比拼环节].在这一例子中我们不难发现,游戏的内容进行便是建立在规则之上.即便是由跑团一系列的最为开放,可以充分发挥玩家想象进行故事推动的桌面游戏,也是建立在规则书之上并由主持人进行主持的一种游戏.玩家在游戏的规则之中做出较为有限的选择,这便是游戏的真实面目.即便是作为开放世界的游戏载体,也只是较为多的提供了可供玩家选择的余地.在最简单的规则确立下,为玩家提供更多的选择便是一种追求,具体体现为任天堂.在超级马里奥兄弟的设计中,跳既可以进行y轴跳跃,也可以进行头顶与部分方块撞击产生互动,落地时也可以踩死怪物进行攻击判定,这便是最具有代表性的单一动作与更多的可能性.不去以复杂的规则来增加游戏的可变度,尽力以最简便的规则实现更多的可玩性,这便体现了一个游戏团队最为基本的设计功底.</p>
+<p>同时游戏中也会确立出一种核心规则作为游戏最为重要的机制对游戏的发展进行推动,在超级玛丽中的核心机制便是跳跃,FPS的核心机制便是射击,赛车游戏的核心机制体现在移动,大富翁是扔骰子.尽可能地使游戏的核心机制更多的融入进其他的机制部分也是确立规则中很重要的一部分.在FPS的设计类型中,为使这一核心机制进行完善,游戏公司通常会对这一机制进行其他规则的补充,比如换弹,移动射击,开镜,武器切换等,都丰富了FPS中的射击要素.所有人都会依据游戏的规则来进行一局游戏的游玩,在明确的规则中玩家进行着自己的选择从而有着不同的游戏效果与感受,便是游戏相较于其他文化载体的区别体现,即互动性.</p>
+<p>在游戏的规则确立过程中,通常会有着以下几种问题.<br>1.玩家作出选择时所面临的情况?<br>2.玩家应该怎样知道我该做出选择了?<br>3.玩家怎样做出自己的选择?<br>4.玩家的选择将会怎样去改变游戏进程?<br>5.玩家该怎样知道我做出选择后的结果?</p>
+<p>只有满足以上五条的全部内容时,玩家将会有目的性的作出自己的选择,并且玩家能够理解这一选择所带来的结果时,通常是赋予了这一选择的目的性.</p>
+<p>好的设计通常代表着创新,代表着实用,代表着易懂,且不可见.他不拘泥于某种功能,并不会仅供装饰,会为人的自我实现留出空间.游戏注重着游玩本身的快乐,而不在于艺术表达.但这并不影响着游戏不该给人带来的其他感官的享受,但在这加分项的前提前,更应该注重游玩本身的过程.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Misuna.github.io/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" rel="tag"># 游戏设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Misuna.github.io/images/avatar.jpg"
+                alt="Misuna" />
+            
+              <p class="site-author-name" itemprop="name">Misuna</p>
+              <p class="site-description motion-element" itemprop="description">大概需要做点什么了</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Misuna.github.io/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Misunam" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:misuna09@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Misuna</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Misuna.github.io/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Misuna.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Misuna.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Misuna.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Misuna.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Misuna.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Misuna.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Misuna.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
